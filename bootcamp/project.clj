@@ -58,6 +58,7 @@
   :source-paths ["src/clj" "src/cljs" "src/cljc"]
   :test-paths ["test/clj" "test/cljc"]
   :java-source-paths ["src/java"]
+  :main bootcamp.main
 
   :plugins [[metosin/bat-test "0.4.2"]]
 
