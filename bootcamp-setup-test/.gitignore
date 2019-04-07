@@ -1,0 +1,46 @@
+#
+# Common:
+#
+
+target
+lib
+classes
+checkouts
+bin
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+.nrepl-port
+
+#
+# Lein:
+#
+
+.lein-deps-sum
+.lein-failures
+.lein-plugins
+.lein-repl-history
+
+#
+# Eclipse:
+#
+
+.project
+.classpath
+.settings
+
+#
+# IntelliJ IDEA:
+#
+
+/*.iws
+/.idea
+/*.iml
+
+#
+# Project:
+#
+
+resources/public/setup.js
+
