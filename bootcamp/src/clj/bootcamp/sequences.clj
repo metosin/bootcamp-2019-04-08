@@ -15,7 +15,9 @@
 ;;  - first: give me current value
 ;;  - next:  give me a seq of next values
 ;; See clojure.lang.ISeq: https://github.com/clojure/clojure/blob/master/src/jvm/clojure/lang/ISeq.java
+;;
 ;; Also known as "cons cell": https://en.wikipedia.org/wiki/Cons
+;; (although historical "cons cell" didn't require the second element to be a "cons cell")
 
 ;; Making a seq (or cons cell) from value:
 ;; (cons this-is-the-current-value the-sequence-of-the-rest)
@@ -109,8 +111,8 @@
 (filter odd? (seq [1 2 3]))                                 ;=> (1 3)
 (filter odd? [1 2 3])                                       ;=> (1 3)
 
-;;
-;; Excercises
+;; Excercise:
+;; ----------
 ;;
 ;; Here are some programming languages:
 
@@ -147,9 +149,9 @@
 
 (cons 1 '())                ;=> (1)
 
-;;
-;; More sequences:
-;;
+;;;
+;;; More sequences:
+;;;
 
 ;; Sequences can be infinitely long:
 
@@ -181,3 +183,16 @@
 (comment
   (let [f (fibonacci)]
     (println (take 10 f))))
+
+;; You can check if (the tip of) a lazy sequence has already been "forced":
+
+(defn heavy-work []
+  (println "Doing some heavy work!")
+  :heavy-results)
+
+(def lazy-worker
+  (lazy-seq (cons (heavy-work) nil)))
+
+(realized? lazy-worker)                 ;=> false
+(first lazy-worker)                     ;=> :heavy-results (note side effect)
+(realized? lazy-worker)                 ;=> true

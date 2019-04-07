@@ -3,28 +3,31 @@
 
 ;;;
 ;;; Data-structures:
-;;; ---------------
+;;; ----------------
 ;;;
 
-;;
-;; Vectors:
-;;
+;;;
+;;; Vectors:
+;;;
 
 (def some-primes [2 3 5 7 11 13 17 19])
 
-(count some-primes)                                         ;=> 8
-(nth some-primes 0)                                         ;=> 2
-(nth some-primes 1)                                         ;=> 3
-(conj some-primes 23)                                       ;=> [2 3 5 7 11 13 17 19 23]
-some-primes                                                 ;=> [2 3 5 7 11 13 17 19]
+(count some-primes)                        ;=> 8
+(nth some-primes 0)                        ;=> 2
+(nth some-primes 1)                        ;=> 3
+(conj some-primes 23)                      ;=> [2 3 5 7 11 13 17 19 23]
+some-primes                                ;=> [2 3 5 7 11 13 17 19]
 
-(vector? some-primes)                                       ;=> true
-(vector 1 2 3)                                              ;=> [1 2 3]
+(vector? some-primes)                      ;=> true
+(vector 1 2 3)                             ;=> [1 2 3]
 
-(instance? java.util.List some-primes)                      ;=> true
-(instance? java.lang.Iterable some-primes)                  ;=> true
+(instance? java.util.List some-primes)     ;=> true
+(instance? java.lang.Iterable some-primes) ;=> true
 
-;; Excercises: fix these:
+;; Excercises:
+;; -----------
+;;
+;; Fix these.
 
 (deftest vector-tests
   (is (= 3 (nth [] 2)))
@@ -32,7 +35,9 @@ some-primes                                                 ;=> [2 3 5 7 11 13 1
 
 ;; See http://clojure.org/cheatsheet
 
-;; List:
+;;;
+;;; List:
+;;;
 
 (def some-happy-numbers '(1 7 10 13 19 23 28))  ; https://en.wikipedia.org/wiki/Happy_number
 
@@ -52,13 +57,17 @@ some-primes                                                 ;=> [2 3 5 7 11 13 1
 (conj [1 2 3]  0)   ;=> [1 2 3 0]
 (conj '(1 2 3) 0)   ;=> (0 1 2 3)
 
-;; Excercises: fix these:
+;; Excercises:
+;; -----------
+;;
+;; Fix these.
 
 (deftest list-tests
   (is (= '("a" "b" "c") (conj '() "a"))))
-;;
-;; Maps:
-;;
+
+;;;
+;;; Maps:
+;;;
 
 (def person {:name  "<your name here>"
              :email "foo@bar.com"})
@@ -78,7 +87,10 @@ person                               ;=> {:email "foo@bar.com", :name "<your nam
 (dissoc person :email)               ;=> {:name "<your name here>"}
 person                               ;=> {:email "foo@bar.com", :name "<your name here>"}
 
-;; Excercises: fix these
+;; Excercises:
+;; -----------
+;;
+;; Fix these.
 
 (deftest map-tests
   (is (= "foo" (get {} :name)))
@@ -87,20 +99,51 @@ person                               ;=> {:email "foo@bar.com", :name "<your nam
 
 ;; Map is also a function of its keys:
 
-(get person :name)                   ;=> "<your name here>"
-(person :name)                       ;=> "<your name here>"
+(get person :name)                  ;=> "<your name here>"
+(person :name)                      ;=> "<your name here>"
 
 ;; You can test if something is a function:
 
-(ifn? person)                        ;=> true
-(ifn? "foo")                         ;=> false
+(ifn? person)                       ;=> true
+(ifn? "foo")                        ;=> false
 
-;; Keywords are functions too
+;; Keywords are (accessor) functions too
 
-(ifn? :name)                         ;=> true
-(:name person)                       ;=> "<your name here>"
+(ifn? :name)                        ;=> true
+(:name person)                      ;=> "<your name here>"
 
-;; Sets:
+;; Map is an immutable value and thus can be a key:
+
+(def weird {{:iam :key-map} {:iam :value-map}})
+
+(get weird {:iam :key-map})         ;=> {:iam :value-map}
+
+;; In fact any value can act as a key:
+
+(def mixed-bag {:keyword :mercury
+                'symbol :venus
+                3 :earth
+                "string" :mars
+                {:pi 3.14} :jupiter
+                [1 2 3 4 5] :saturn
+                #{:foo :bar} :uranus})
+
+(get mixed-bag :keyword)            ;=> :mercury
+(get mixed-bag (symbol "symbol"))   ;=> :venus
+(get mixed-bag (+ 1 1 1))           ;=> :earth
+(get mixed-bag (str "str" "ing"))   ;=> :mars
+(get mixed-bag (assoc {} :pi 3.14)) ;=> :jupiter
+(get mixed-bag [1 2 3 4 5])         ;=> :saturn
+
+;; But also! (why?)
+(get mixed-bag (list 1 2 3 4 5))    ;=> :saturn
+
+(get mixed-bag (conj #{:foo} :bar)) ;=> :uranus
+(get mixed-bag (conj #{:bar} :foo)) ;=> :uranus
+
+;;;
+;;; Sets:
+;;;
 
 (def planets #{:mercury, :venus, :earth, :mars, :jupiter, :saturn, :uranus})
 

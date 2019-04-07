@@ -24,29 +24,84 @@
 ;; Modern functional concept:
 ;; * persistent data-structures
 
-;;
-;; First-class and higher-order functions:
-;; ---------------------------------------
-;;
+;;;
+;;; First-class functions:
+;;;
 
-;; First-class function:
+;; - functions are treated as "first-class citizens" in the language
+;; - have literal expressions (a.k.a. anonymous functions)
+;; - can be passed to other functions as arguments
+;; - can be returned from other functions
+;; - can be stored in data structures
 
-(fn [a b] (+ a b))
+(fn [a b] (+ a b))                      ;=> #function[...]
+#(+ %1 %2)                              ;=> #function[...]
 
-;; Higher-order functions:
+(defn apply-function [f v]
+  (f v))
 
-;; - functions as arguments:
-(filter odd? [1 2 3 4 5])
+(apply-function (fn [x] (+ x x)) 1)     ;=> 2
+(apply-function #(+ % %) 1)             ;=> 2
 
-;; - functions as return values:
+(defn return-function []
+  (fn [x] (+ x x)))
+
+((return-function) 1)                   ;=> 2
+
+(def handler {:ping (fn [_]
+                      {:type :pong})
+              :add (fn [message]
+                     {:type :sum
+                      :result (+ (:lhs message)
+                                 (:rhs message))})})
+
+(defn handle [message]
+  ((get handler (:type message)) message))
+
+(handle {:type :ping})                  ;=> {:type :pong}
+(handle {:type :add
+         :lhs 20
+         :rhs 22})                      ;=> {:type :sum, :result 42}
+
+(defn process [handler message]
+  ((get handler (:type message)) message))
+
+(process handler {:type :ping})         ;=> {:type :pong}
+
+;;;
+;;; Higher-order functions:
+;;;
+
+;; Higher order functions are functions that either accept functions as
+;; arguments or return functions or both.
+
+(def numbers [1 2 3 4 5])
+
+(apply + numbers)                       ;=> 15
+(filter odd? numbers)                   ;=> (1 3 5)
+(group-by odd? numbers)                 ;=> {true [1 3 4], false [2 4]}
+(partition-by #(quot % 2) numbers)      ;=> ((1) (2 3) (4 5))
+(sort-by - numbers)                     ;=> (5 4 3 2 1)
+
 (let [add-2 (partial + 2)]
-  (add-2 40))
+  (add-2 40))                           ;=> 42
+
+(let [sum (partial apply +)]
+  (sum numbers))                        ;=> 15
+
+(let [my-even? (comp not odd?)]
+  (filter my-even? numbers))            ;=> (2 4)
+
+;; Higher-order functions are key to high degree of composability.
+
+;;;
+;;; Purity:
+;;;
 
 ;;
-;; Purity:
-;; -------
-;; Clojure is a 'practical' language, no strict purity enforcement (like in Haskell)
-;; How ever, clojure has a strong tendency towards purity (persistent datastructures, STM)
+;; Clojure is a 'practical' language, no strict purity enforcement (like in
+;; Haskell) How ever, clojure has a strong tendency towards purity (persistent
+;; datastructures, STM)
 ;;
 
 ;; Example of a pure function:
@@ -60,29 +115,29 @@
   (println "generating hello message for" your-name)
   (str message ", " your-name))
 
-(def message (atom nil))                                    ; known as "evil global mutable state"
-                                                            ; http://programmers.stackexchange.com/questions/148108/why-is-global-state-so-evil
+(def message (atom nil))                ; known as "evil global mutable state"
+                                        ; http://programmers.stackexchange.com/questions/148108/why-is-global-state-so-evil
 
 (defn hello [your-name]
   (str (deref message) ", " your-name))
 
 (reset! message "Hello")
-(hello "world")                                             ;=> "Hello, world"
+(hello "world")                         ;=> "Hello, world"
 
 (reset! message "Moi")
-(hello "maailma")                                           ;=> "Moi, maailma"
+(hello "maailma")                       ;=> "Moi, maailma"
 
 ;; Why purity matters?
+
 ;; Pure functions are easy to develop, test and reason about.
 
-;; Application with _only_ pure functions does nothing, so some non-pure parts are
-;; always required. The Right Way(tm) is to be as pure as possible and isolate
-;; non-pure functions to some non-pure units.
+;; Application with _only_ pure functions does nothing, so some non-pure parts
+;; are always required. The Right Way(tm) is to be as pure as possible and
+;; isolate non-pure functions to some non-pure units.
 
-;;
-;; Closures:
-;; ---------
-;;
+;;;
+;;; Closures:
+;;;
 
 (defn greeter [message]            ; <- message here
   (fn [your-name]

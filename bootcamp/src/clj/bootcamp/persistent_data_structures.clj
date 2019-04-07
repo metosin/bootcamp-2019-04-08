@@ -1,13 +1,14 @@
 (ns bootcamp.persistent-data-structures
   (:require [clojure.test :refer :all]
-            [clojure.string :as string]))
+            [clojure.string :as str]))
 
 ;;;
 ;;; Peristent data-structures:
 ;;;
 
-(assoc {:foo "foo"} :bar "bar")                             ;=> {:foo "foo", :bar "bar"}
-(dissoc {:foo "foo" :bar "bar"} :foo)                       ;=> {:bar "bar"}
+(assoc {:foo "foo"} :bar "bar")                      ;=> {:foo "foo", :bar "bar"}
+(dissoc {:foo "foo" :bar "bar"} :foo)                ;=> {:bar "bar"}
+(update {:foo "foo" :bar "bar"} :foo str/upper-case) ;=> {:foo "FOO", :bar "bar"}
 
 (deftest persistent-data-structures-tests
   (let [book {:title   "The Joy of Clojure"
@@ -39,15 +40,12 @@
               :langs   #{:clojure}
               :authors [:fogus]}]
 
-    ;; Excercise:
-    ;; ----------
-    ;; Your task: add keyword :houser to the authors vector:
+    ;; Adding keyword :houser to the authors vector:
 
     (is (= {:title   "The Joy of Clojure"
             :langs   #{:clojure}
             :authors [:fogus :houser]}
            ;;                ^^^^^^^-------< here
-
            (update-in book [:authors] conj :houser)))))
 
 (deftest add-100-points-to-game-score-tests
@@ -58,12 +56,12 @@
 
     ;; Excercise:
     ;; ----------
-    ;; Your task: add 100 points to 'points'
+    ;;
+    ;; Fix this and add 100 points to :points.
 
     (is (= {:player "John McCarthy"
             :state {:game-started 1429970768115
                     :score {:level 6
                             :points 1337}}}
            ;;                       ^^^^---------< here's the +100
-
-           (update-in game )))))
+           (update-in game  )))))

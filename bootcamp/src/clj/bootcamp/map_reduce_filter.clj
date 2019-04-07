@@ -7,9 +7,10 @@
 ;;; Map, reduce and filter:
 ;;;
 ;;; Common functional programming involves:
-;;;   filter  - When you wan't to limit the elements from seq
-;;;   map     - When you wan't to apply convert each element in some way
-;;;   reduce  - When you wan't to reduce a seq to a value
+;;;
+;;;   filter  - When you want to limit the elements from seq
+;;;   map     - When you want to transform each element in some way
+;;;   reduce  - When you want to reduce a seq to a value
 ;;;
 
 ;;
@@ -29,9 +30,7 @@
 (vector? b/books)                                           ;=> true
 (count b/books)                                             ;=> 6
 
-;; Find out how many books are about clojure?
-
-
+;; Find out how many books are about Clojure?
 
 ;;
 ;; Map:
@@ -64,8 +63,8 @@
 ;; Exercise:
 ;; ----------
 ;;
-;; Continue with the books about clojure. This time, produce a seq
-;; of page counts from all the books that are about clojure:
+;; Continue with the books about Clojure. This time, produce a seq
+;; of page counts from all the books that are about Clojure:
 
 
 
@@ -75,7 +74,7 @@
 ;; -------
 ;;
 
-(reduce + 10 [1 2 3 4])                                      ;=> 20
+(reduce + 10 [1 2 3 4])                                     ;=> 20
 ;; (+ 10 1)   => 11
 ;; (+ 11 2)   => 13
 ;; (+ 13 3)   => 16
@@ -90,9 +89,21 @@
           (str acc ", " value))
         ["java" "python" "clojure"])                        ;=> "java, python, clojure"
 
+;; While reduce is very useful when computing with data structures it cannot
+;; be overstated how important the following idiom is:
+
+#_
+(reduce transform-fn initial-state operations)
+
+;; Here:
+;;
+;; - initial-state is the initial state of a system
+;; - operations is a sequence of commands that operate on the state
+;; - transform-fn is computes a new state from the previous state by applying
+;;   the next operation to it
 
 ;; Exercise:
 ;; ----------
 ;;
 ;; Continue with the previous example where we got the seq of number of pages.
-;; Now answer to questions: how many pages we have about clojure in total?
+;; Now answer to questions: how many pages we have about Clojure in total?

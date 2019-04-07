@@ -52,6 +52,9 @@ answer                                                      ;=> 42
   (is (= "No"  (if false "Yes" "No")))
   (is (= nil   (if false "Yes"))))
 
+;; Exercise:
+;; ---------
+;;
 ;; Examine what is considered as 'true', change the "?" to "Yes" or "No"
 
 (deftest truthy-tests

@@ -31,8 +31,10 @@
 (shout ["this" "is" "fun"])                                 ;=> "THIS, IS, FUN"
 
 ;; Exercise:
-;; Make a function that accepts a string of digits, converts it to
-;; a number and returns the number doubled:
+;; ---------
+;;
+;; Using function composition make a function that accepts a string of digits,
+;; converts it to a number and returns the number doubled:
 
 (defn str->long [v]
   (Long/parseLong v))
@@ -40,7 +42,7 @@
 (str->long "42")                                            ;=> 42
 
 ;; Fix this
-(def str-doubler str->long)
+(def str-doubler ,,,)
 
 ;; This should pass
 (deftest str-doubler-test

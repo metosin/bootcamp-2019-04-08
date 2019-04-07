@@ -64,7 +64,7 @@
 ;;=> ["The Joy of Clojure" #{:clojure} 328]
 
 ;; Since it's very common to use same symbol name as the key, there's
-;; a shortkut:
+;; a shortcut:
 
 (let [{:keys [title langs pages]} (first b/books)]
   [title langs pages])

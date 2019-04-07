@@ -146,12 +146,18 @@ answer                                                      ; 42
 (foo 1 2 3)                                                 ;=> [1 2 (3)]
 (foo 1 2)                                                   ;=> [1 2 nil]
 
-;;; TODO:
-;;;   write a function that returns the takes two arguments, the names of your neighbours.
-;;;   the function should returns the average length of those names and your own name.
-;;; Helper:
-;;;   check functions count, + and / from clojure.core namespace
-;;;   try: (clojure.repl/doc count)
+;; Exercise:
+;; ---------
+;;
+;; Write a function that returns the takes two arguments, the names of your
+;; neighbours.  the function should returns the average length of those names
+;; and your own name.
+;;
+;; Help:
+;;
+;; - Check functions count, + and / from clojure.core namespace
+;; - Try: (clojure.repl/doc count)
+
 
 
 ;;;
@@ -169,6 +175,9 @@ answer                                                      ; 42
   (is (= 84  (doubler 42)))
   (is (= 126 (tripler 42))))
 
+;; Exercise:
+;; ---------
+;;
 ;; This does not work, fix this so that the tests below succeed:
 
 (defn greeter [message]
