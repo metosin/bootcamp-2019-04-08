@@ -59,7 +59,7 @@
   :test-paths ["test/clj" "test/cljc"]
   :java-source-paths ["src/java"]
 
-  :plugins [[metosin/boot-alt-test "0.4.0-20171121.142027-5"]]
+  :plugins [[metosin/bat-test "0.4.2"]]
 
   :profiles {:dev {:resource-paths ["target/generated"]
                    :plugins [[lein-cljsbuild "1.1.7"]]}
