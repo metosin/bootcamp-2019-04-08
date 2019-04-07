@@ -10,9 +10,12 @@ answer                                                      ;=> 42
 
 ; The 'answer' is now bound to value 42 in this namespace
 
-; We'll examine stuff using tests, like this:
+; We'll examine stuff using tests, like this one:
+
 (deftest answer-tests
   (is (= 42 answer)))
+
+; Hint: try `(run-tests)` in the REPL
 
 ;;
 ;; Local bindings:
@@ -20,7 +23,7 @@ answer                                                      ;=> 42
 
 (let [a 21
       b 2]
-  (str "a * b =" (* a b)))
+  (str "a * b = " (* a b)))
 
 (deftest let-tests
   (let [a 21
