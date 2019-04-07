@@ -1,0 +1,12 @@
+version: '2'
+services:
+  db:
+    image: postgres:10.0
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    environment:
+      POSTGRES_DB: bootcamp
+      POSTGRES_USER: bootcamp
+      POSTGRES_PASSWORD: bootcamp
