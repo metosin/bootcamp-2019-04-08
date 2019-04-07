@@ -2,11 +2,11 @@
   (:require [clojure.test :refer :all]
             [clojure.string :as string]))
 
-;;
-;; Functional composition:
-;;
+;;;
+;;; Functional composition:
+;;;
 
-; partial
+;; partial
 
 (defn greeter [message your-name]
   (str message ", " your-name))
@@ -17,10 +17,10 @@
 (greeter-en "world")                                        ;=> "Hello, world"
 (greeter-fi "maailma")                                      ;=> "Moi, maailma"
 
-; comp
+;; comp
 
-; Make a function that accepts a seq of strings and returns
-; the strings joined with ", " in upper-case letters:
+;; Make a function that accepts a seq of strings and returns
+;; the strings joined with ", " in upper-case letters:
 
 (string/join ", " ["a" "b"])                                ;=> "a, b"
 (string/upper-case "hello")                                 ;=> "HELLO"
@@ -30,18 +30,18 @@
 
 (shout ["this" "is" "fun"])                                 ;=> "THIS, IS, FUN"
 
-; Exercise:
-; Make a function that accepts a string of digits, converts it to
-; a number and returns the number doubled:
+;; Exercise:
+;; Make a function that accepts a string of digits, converts it to
+;; a number and returns the number doubled:
 
 (defn str->long [v]
   (Long/parseLong v))
 
 (str->long "42")                                            ;=> 42
 
-; Fix this
+;; Fix this
 (def str-doubler str->long)
 
-; This should pass
+;; This should pass
 (deftest str-doubler-test
   (is (= 42 (str-doubler "21"))))

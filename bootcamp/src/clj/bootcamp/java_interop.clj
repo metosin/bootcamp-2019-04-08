@@ -14,34 +14,34 @@
 ;; - Create objects that implement Java interfaces
 ;;
 
-; Instantiate Java objects:
+;; Instantiate Java objects:
 
 (def rnd (new Random 42))                                   ; old way
 (def rnd (Random. 42))                                      ; idiomatic
 
-; Invoke method:
+;; Invoke method:
 
 (. rnd nextInt 1337)                                        ;=> 897  old way
 (.nextInt rnd 1337)                                         ;=> 152  idiomatic
 
-; class
+;; class
 
 (class rnd)                                                 ;=> java.util.Random
 (class (class rnd))                                         ;=> java.util.Class
 
-; instance?
+;; instance?
 
 (instance? Random rnd)                                      ;=> true
 (instance? Random 42)                                       ;=> false
 
-; Static methods/fields:
+;; Static methods/fields:
 
 (str "Java version: " (System/getProperty "java.version"))  ;=> "Java version: 1.8.0_45"
 (str "AC/DC: Back in " java.awt.Color/BLACK)                ;=> "AC/DC: Back in java.awt.Color[r=0,g=0,b=0]"
 
-;;
-;; Exceptions:
-;;
+;;;
+;;; Exceptions:
+;;;
 
 (comment
   (try
@@ -52,14 +52,14 @@
     (finally
       (println "That's it for exceptions"))))
 
-; stdout
-;   Here we go...
-;   Got exception: Oh no!
-;   That's it for exceptions
+;; stdout
+;;   Here we go...
+;;   Got exception: Oh no!
+;;   That's it for exceptions
 
-;
-; Clojure functions implement java.lang.Runnable and java.util.concurrent.Callable.
-;
+;;
+;; Clojure functions implement java.lang.Runnable and java.util.concurrent.Callable.
+;;
 
 (comment
   (let [t (Thread. (fn []
@@ -67,12 +67,12 @@
                      (println "Done")))]
     (.start t)))
 
-;=> nil
-; after 1 sec prints "Done" to stdout.
+;;=> nil
+;; after 1 sec prints "Done" to stdout.
 
-;
-; proxy: Implement Java interface:
-;
+;;
+;; proxy: Implement Java interface:
+;;
 
 (comment
   (doseq [f (-> (File. ".")
@@ -80,5 +80,5 @@
                               (accept [dir file-name]
                                 (.endsWith file-name ".clj")))))]
     (println "file:" (.getName f))))
-; prints:
-;  file: project.clj
+;; prints:
+;;  file: project.clj

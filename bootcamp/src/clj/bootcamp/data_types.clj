@@ -1,11 +1,11 @@
 (ns bootcamp.data-types
   (:require [clojure.test :refer :all]))
 
-;
-; Handy type inspection functions:
-;   type       :- return the type of argument
-;   instance?  :- checks if arg2 is instance of arg1
-;
+;;
+;; Handy type inspection functions:
+;;   type       :- return the type of argument
+;;   instance?  :- checks if arg2 is instance of arg1
+;;
 
 (type "hello")                                              ;=> java.lang.String
 (type (type "hello"))                                       ;=> java.lang.Class
@@ -13,9 +13,9 @@
 (instance? java.lang.String "hello")                        ;=> true
 (instance? java.lang.String 42)                             ;=> false
 
-;;
-;; Basic data types:
-;;
+;;;
+;;; Basic data types:
+;;;
 
 (type 42)                                                   ;=> java.lang.Long
 (type 3.12159)                                              ;=> java.lang.Double
@@ -24,27 +24,27 @@
 (type #"foo\s+bar")                                         ;=> java.util.regex.Pattern
 (type 3/14)                                                 ;=> clojure.lang.Ratio
 
-; Note: pay attention of unintended ratios:
+;; Note: pay attention of unintended ratios:
 
 (time
   (reduce + 1/2 (range 1000000)))
-;=> "Elapsed time: 396.400713 msecs"
-;   999999000001/2
+;;=> "Elapsed time: 396.400713 msecs"
+;;   999999000001/2
 
 (time
   (reduce + 0.5 (range 1000000)))
-;=> "Elapsed time: 16.039644 msecs"
-;    4.999995000005E11
+;;=> "Elapsed time: 16.039644 msecs"
+;;    4.999995000005E11
 
-;;
-;; nil, same as null in Java et al.
-;;
+;;;
+;;; nil, same as null in Java et al.
+;;;
 
 nil                                                         ;=> nil
 
-;;
-;; Keywords:
-;;
+;;;
+;;; Keywords:
+;;;
 
 :foo                                                        ;=> :foo
 (= :foo :foo)                                               ;=> true
@@ -52,16 +52,16 @@ nil                                                         ;=> nil
 (keyword? "foo")                                            ;=> false
 (keyword? (keyword "foo"))                                  ;=> true
 
-; The '=' function uses Object.equals
+;; The '=' function uses Object.equals
 (= "foobar" (str "foo" "bar"))                              ;=> true
 
-; identical? uses Java == operator:
+;; identical? uses Java == operator:
 (identical? "foobar" (str "foo" "bar"))                     ;=> false
 
-; Equal keywords are always identical:
+;; Equal keywords are always identical:
 (identical? :foobar (keyword (str "foo" "bar")))            ;=> true
 
-;; Namespaces and keywords:
+;;; Namespaces and keywords:
 
 (namespace :foo)                                            ;=> nil
 (namespace :foo/bar)                                        ;=> "foo"
@@ -73,13 +73,13 @@ nil                                                         ;=> nil
 (namespace ::s/foo)                                         ;=> "clojure.string"
 (namespace ::foo)                                           ;=> "bootcamp.data-types"
 
-;;
-;; Symbols:
-;;
+;;;
+;;; Symbols:
+;;;
 
-; - Used to refer to something else
-; - Evaluate to that 'something'
-; - quote stops evaluation
+;; - Used to refer to something else
+;; - Evaluate to that 'something'
+;; - quote stops evaluation
 
 (def answer 42)
 
@@ -89,13 +89,13 @@ answer                                                      ; 42
 (type (quote answer))                                       ; clojure.lang.Symbol
 (= (quote answer) (symbol "answer"))                        ; true
 
-; Reader macro '
+;; Reader macro '
 
 (= (quote answer) 'answer)                                  ; true
 
-; Reader macro `
+;; Reader macro `
 
-; Same as ' but expands namespaces:
+;; Same as ' but expands namespaces:
 
 (namespace 'answer)                                         ;=> nil
 (namespace `answer)                                         ;=> "bootcamp.data-types"
@@ -106,23 +106,23 @@ answer                                                      ; 42
 `s/upper-case                                               ;=> clojure.string/upper-case
 (namespace `s/upper-case)                                   ;=> "clojure.string
 
-; The ` is typically only used when writing macros.
+;; The ` is typically only used when writing macros.
 
-;;
-;; Functions:
-;;
+;;;
+;;; Functions:
+;;;
 
 (def say-hello (fn [your-name]
                  (str "Hello, " your-name)))
 
-; Conveniency macro for (def func-name (fn [args] body))
+;; Conveniency macro for (def func-name (fn [args] body))
 (defn say-hello [your-name]
   (str "Hello, " your-name))
 
 (deftest say-hello-tests
   (is (= "Hello, world" (say-hello "world"))))
 
-; Multi-arity
+;; Multi-arity
 
 (defn say-hello2
   ([]
@@ -137,7 +137,7 @@ answer                                                      ; 42
   (is (= "Hello, world" (say-hello2)))
   (is (= "Hello, foo"   (say-hello2 "foo"))))
 
-; Function with any number of args:
+;; Function with any number of args:
 
 (defn foo [a b & args]
   [a b args])
@@ -146,17 +146,17 @@ answer                                                      ; 42
 (foo 1 2 3)                                                 ;=> [1 2 (3)]
 (foo 1 2)                                                   ;=> [1 2 nil]
 
-;; TODO:
-;;   write a function that returns the takes two arguments, the names of your neighbours.
-;;   the function should returns the average length of those names and your own name.
-;; Helper:
-;;   check functions count, + and / from clojure.core namespace
-;;   try: (clojure.repl/doc count)
+;;; TODO:
+;;;   write a function that returns the takes two arguments, the names of your neighbours.
+;;;   the function should returns the average length of those names and your own name.
+;;; Helper:
+;;;   check functions count, + and / from clojure.core namespace
+;;;   try: (clojure.repl/doc count)
 
 
-;;
-;; Closures:
-;;
+;;;
+;;; Closures:
+;;;
 
 (defn make-multiplier [multiplier]
   (fn [some-value]
@@ -169,7 +169,7 @@ answer                                                      ; 42
   (is (= 84  (doubler 42)))
   (is (= 126 (tripler 42))))
 
-; This does not work, fix this so that the tests below succeed:
+;; This does not work, fix this so that the tests below succeed:
 
 (defn greeter [message]
   (fn [your-name]

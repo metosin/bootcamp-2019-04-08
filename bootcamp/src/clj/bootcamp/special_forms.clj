@@ -1,25 +1,25 @@
 (ns bootcamp.special-forms
   (:require [clojure.test :refer :all]))
 
-; Define something to this namespace
+;; Define something to this namespace
 
 (def answer 42)
 
-; Evaluate it:
+;; Evaluate it:
 answer                                                      ;=> 42
 
-; The 'answer' is now bound to value 42 in this namespace
+;; The 'answer' is now bound to value 42 in this namespace
 
-; We'll examine stuff using tests, like this one:
+;; We'll examine stuff using tests, like this one:
 
 (deftest answer-tests
   (is (= 42 answer)))
 
-; Hint: try `(run-tests)` in the REPL
+;; Hint: try `(run-tests)` in the REPL
 
-;;
-;; Local bindings:
-;;
+;;;
+;;; Local bindings:
+;;;
 
 (let [a 21
       b 2]
@@ -34,25 +34,25 @@ answer                                                      ;=> 42
       (is (= 1337 b)))
     (is (= 2 b))))
 
-;
-; Fix this test:
-;
+;;
+;; Fix this test:
+;;
 
 (deftest fix-these-let-tests
   (let [a "hello"
         b "world"]
     (is (= "Hello, world" (str a b)))))
 
-;;
-;; if
-;;
+;;;
+;;; if
+;;;
 
 (deftest if-tests
   (is (= "Yes" (if true "Yes")))
   (is (= "No"  (if false "Yes" "No")))
   (is (= nil   (if false "Yes"))))
 
-; Examine what is considered as 'true', change the "?" to "Yes" or "No":
+;; Examine what is considered as 'true', change the "?" to "Yes" or "No"
 
 (deftest truthy-tests
   (is (= "?"  (if true     "Yes" "No")))
@@ -61,9 +61,9 @@ answer                                                      ;=> 42
   (is (= "?"  (if false    "Yes" "No")))
   (is (= "?"  (if nil      "Yes" "No"))))
 
-;;
-;; Use 'do' to evaluate multiple statements (always for side-effects)
-;;
+;;;
+;;; Use 'do' to evaluate multiple statements (always for side-effects)
+;;;
 
 (defn result []
   (println "result:" (if (= (* 2 21) answer)
