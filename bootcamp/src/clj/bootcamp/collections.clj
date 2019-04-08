@@ -57,6 +57,8 @@ some-primes                                ;=> [2 3 5 7 11 13 17 19]
 (conj [1 2 3]  0)   ;=> [1 2 3 0]
 (conj '(1 2 3) 0)   ;=> (0 1 2 3)
 
+;; NB: Comparison to linked list
+
 ;; Excercises:
 ;; -----------
 ;;
@@ -86,6 +88,8 @@ person                               ;=> {:email "foo@bar.com", :name "<your nam
 
 (dissoc person :email)               ;=> {:name "<your name here>"}
 person                               ;=> {:email "foo@bar.com", :name "<your name here>"}
+
+(dissoc person :title)               ;=> {:email "foo@bar.com", :name "<your name here>"}
 
 ;; Excercises:
 ;; -----------

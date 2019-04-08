@@ -76,3 +76,9 @@ answer                                                      ;=> 42
                        (do
                          (println "Not, for some reason we do not have the answer")
                          "no"))))
+
+;;;
+;;;
+;;;
+
+(quote foo)

@@ -18,7 +18,9 @@
 ;;;
 
 (type 42)                                                   ;=> java.lang.Long
+(type (int 42))
 (type 3.12159)                                              ;=> java.lang.Double
+(type (float 3.12159))
 (type true)                                                 ;=> java.lang.Boolean
 (type \x)                                                   ;=> java.lang.Character
 (type #"foo\s+bar")                                         ;=> java.util.regex.Pattern
@@ -27,9 +29,15 @@
 ;; Note: pay attention of unintended ratios:
 
 (time
-  (reduce + 1/2 (range 1000000)))
+ (reduce + 1/2 (range 1000000)))
 ;;=> "Elapsed time: 396.400713 msecs"
 ;;   999999000001/2
+
+;;
+;; acc = 0.5
+;; for x in range(1000000):
+;;     acc += x
+;;
 
 (time
   (reduce + 0.5 (range 1000000)))
@@ -67,6 +75,8 @@ nil                                                         ;=> nil
 (namespace :foo/bar)                                        ;=> "foo"
 (name :foo/bar)                                             ;=> "bar"
 
+;; import clojure.string as s
+;;
 (require '[clojure.string :as s])
 
 (namespace :s/foo)                                          ;=> "s"
@@ -88,6 +98,7 @@ answer                                                      ; 42
 (symbol? (quote answer))                                    ; true
 (type (quote answer))                                       ; clojure.lang.Symbol
 (= (quote answer) (symbol "answer"))                        ; true
+(identical? (quote answer) (symbol "answer"))               ; false
 
 ;; Reader macro '
 
@@ -145,6 +156,7 @@ answer                                                      ; 42
 (foo 1 2 3 4)                                               ;=> [1 2 (3 4)]
 (foo 1 2 3)                                                 ;=> [1 2 (3)]
 (foo 1 2)                                                   ;=> [1 2 nil]
+#_(foo 1)
 
 ;; Exercise:
 ;; ---------
@@ -182,9 +194,26 @@ answer                                                      ; 42
 
 (defn greeter [message]
   (fn [your-name]
+
+
     ))
+
+;; Hints: string?, (if ...), str
 
 (deftest greeter-tests
   (let [f (greeter "Hello")]
     (is (= "Hello, world" (f "world")))
     (is (= nil (f nil)))))
+
+
+;;; Note about evaluation order
+
+;; (function arg1 arg2 arg3)
+
+;; 12 + 23 + 45
+
+(+ 12 23 45)
+
+;; 12 + (12 / 3)
+
+(+ 12 (/ 12 3))

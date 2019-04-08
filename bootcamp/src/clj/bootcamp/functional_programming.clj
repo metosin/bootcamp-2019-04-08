@@ -79,9 +79,11 @@
 
 (apply + numbers)                       ;=> 15
 (filter odd? numbers)                   ;=> (1 3 5)
-(group-by odd? numbers)                 ;=> {true [1 3 4], false [2 4]}
+(group-by #(mod % 3) numbers)           ;=> {1 [1 4], 2 [2 5], 0 [3]}
 (partition-by #(quot % 2) numbers)      ;=> ((1) (2 3) (4 5))
 (sort-by - numbers)                     ;=> (5 4 3 2 1)
+
+;; Composition
 
 (let [add-2 (partial + 2)]
   (add-2 40))                           ;=> 42

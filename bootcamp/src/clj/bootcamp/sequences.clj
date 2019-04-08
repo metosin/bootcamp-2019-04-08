@@ -190,9 +190,12 @@
   (println "Doing some heavy work!")
   :heavy-results)
 
-(def lazy-worker
-  (lazy-seq (cons (heavy-work) nil)))
+(defn lazy-worker []
+  (lazy-seq (cons (heavy-work) (lazy-worker))))
 
-(realized? lazy-worker)                 ;=> false
-(first lazy-worker)                     ;=> :heavy-results (note side effect)
-(realized? lazy-worker)                 ;=> true
+(def lazy-results (lazy-worker))
+
+(realized? lazy-results)                 ;=> false
+(first lazy-results)                     ;=> :heavy-results (note the side effect)
+(realized? lazy-results)                 ;=> true
+(nth lazy-results 10)                    ;=> :heavy-results (note side effects)
