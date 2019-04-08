@@ -23,7 +23,8 @@ And to stop the database:
 docker run sauna_iot_db
 ```
 
-There are convenience scripts `scripts/pg-up` and `scripts/pg-down` that do exactly the above.
+There are convenience scripts `scripts/pg-up` and `scripts/pg-down` that do
+exactly the above.
 
 It is good to check that the database server is accepting connections and has
 the user and default database set up correctly:
@@ -44,22 +45,61 @@ You are connected to database "sauna_iot" as user "sauna_iot_admin" on host "loc
 sauna_iot=# \q
 ```
 
-In case you need to create the user and the database by hand see `lib/init.sql`.
+In case you need to create the user and the database by hand see
+`lib/init.sql`.
 
-### Running Figwheel and SASS compiler
+### Running the backend
 
-Open terminal, go to the working directory and run:
+Open a REPL and within the `user` namespace evaluate:
+
+```clojure
+user> (go)
+```
+
+To restart the system evaluate:
+
+```clojure
+user> (reset)
+```
+
+Once the backend system is running you can access:
+
+- the API end-points through http://localhost:3000/api
+- the Swagger UI for the API through http://localhost:3000/api/index.html
+- the Swagger specification for the API through http://localhost:3000/api/swagger.json
+
+### Running the frontend
+
+Open terminal, go to the root project directory and run:
 
 ```bash
 lein dev
 ```
 
-Then open your IDE / editor and start a new REPL from there. Use `(reset)` to
-start the server and reset it when you make changes to the backend.
+(Unfortunately the `pdo` command that the `dev` command invokes behind tends
+to hang.  If this happens, follow the instructions below.)
 
-The frontend is running at http://localhost:3000.
+The `lein dev` command runs `sass4clj` and `figwheel` commands in parallel.
+You can also run them by hand.  Run the following commands in separate
+terminals.
 
-The frontend will update automatically when files are saved.
+```bash
+lein sass4clj auto
+```
+
+```base
+lein figwheel
+```
+
+Once you the following line in the Figwheel terminal
+
+```
+Prompt will show when Figwheel connects to your application
+```
+
+you can open the front-end client by pointing your browser to
+http://localhost:3000.  Try open multiple clients in different browser tabs or
+browsers.
 
 ## Tests
 
