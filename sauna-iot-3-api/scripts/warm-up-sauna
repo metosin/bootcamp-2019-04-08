@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+for t in $(seq 11); do
+    sleep 1
+    "$(dirname $0)/send-measurement" $1 "${t}0"
+done

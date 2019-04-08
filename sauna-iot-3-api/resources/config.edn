@@ -1,0 +1,13 @@
+{;; HTTP server
+ :server-address "localhost"
+ :server-port 3000
+ :server-path "/"
+
+ ;; Database
+ :db-host "localhost"
+ :db-port 5432
+ :db-database "sauna_iot"
+ :db-user "sauna_iot_admin"
+ ;; NB: Cprop provides ways to capture secrets like this, for example, from
+ ;; the environment or from separate encrypted configuration file.
+ :db-password "very_secret"}

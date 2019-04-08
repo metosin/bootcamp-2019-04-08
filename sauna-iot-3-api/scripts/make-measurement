@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+cat <<EOF
+{
+  "device_id": "$1",
+  "measured_on": "$(date '+%Y-%m-%dT%H:%M:%S+02:00')",
+  "temperature": $2
+}
+EOF
