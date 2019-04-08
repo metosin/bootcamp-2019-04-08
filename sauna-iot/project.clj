@@ -27,7 +27,8 @@
                  [reagent "0.8.1"]
 
                  ;; Really development dependencies
-                 [figwheel-sidecar "0.5.18"]]
+                 [figwheel-sidecar "0.5.18"]
+                 [org.clojure/tools.namespace "0.2.11"]]
   :main ^:skip-aot backend.main
   :source-paths ["src/clj" "src/cljc"]
   :test-paths ["test/clj" "test/cljc"]

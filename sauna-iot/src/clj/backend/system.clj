@@ -1,6 +1,6 @@
 (ns backend.system
-  (:require [mount.core :as mount]
-            [backend.server]))
+  (:require [backend.server]
+            [mount.core :as mount]))
 
 (defn start []
   (-> (mount/start) prn))
