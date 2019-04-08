@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+exec docker run --rm --name sauna_iot_db -p 5432:5432 -d \
+    -e POSTGRES_DB="sauna_iot" \
+    -e POSTGRES_USER="sauna_iot_admin" \
+    -e POSTGRES_PASSWORD="very_secret" \
+    postgres:11.2
