@@ -1,8 +1,52 @@
 # Sauna-IoT
 
-Simple full-stack app example for demonstrating Clojure(script)
+A simple full-stack app example for demonstrating Clojure(script)
 
 ## Development
+
+### Running the database
+
+To start a suitable Postgres database that listensa to the port 5432 run the
+following command:
+
+```
+docker run --rm --name sauna_iot_db -p 5432:5432 -d \
+    -e POSTGRES_DB="sauna_iot" \
+    -e POSTGRES_USER="sauna_iot_admin" \
+    -e POSTGRES_PASSWORD="very_secret" \
+    postgres:11.2
+```
+
+And to stop the database:
+
+```
+docker run sauna_iot_db
+```
+
+There are convenience scripts `scripts/pg-up` and `scripts/pg-down` that do exactly the above.
+
+It is good to check that the database server is accepting connections and has
+the user and default database set up correctly:
+
+```bash
+psql -h localhost -p 5432 sauna_iot sauna_iot_admin
+```
+
+Within the `psql` shell you should be able to reproduce the following:
+
+```
+Password for user sauna_iot_admin: *very_secret*
+psql (11.2)
+Type "help" for help.
+
+sauna_iot=# \conninfo
+You are connected to database "sauna_iot" as user "sauna_iot_admin" on host "localhost" at port "5432".
+sauna_iot=# \q
+```
+
+In case you need to create the user and the database by hand see `lib/init.sql`.
+
+### Running Figwheel and SASS compiler
 
 Open terminal, go to the working directory and run:
 
