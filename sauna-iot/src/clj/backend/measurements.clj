@@ -31,8 +31,8 @@
 (defn add-measurement
   [{:keys [device_id measured_on] :as measurement}]
   (sql/add-measurement! {:device_id device_id
-                                  :measured_on measured_on
-                                  :payload (dissoc measurement
-                                                   :device_id
-                                                   :measured_on)})
+                         :measured_on measured_on
+                         :payload (dissoc measurement
+                                          :device_id
+                                          :measured_on)})
   (reset! latest-measurement measurement))
