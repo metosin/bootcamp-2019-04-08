@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+MAKE_MEASUREMENT="$(dirname $0)/make-measurement"
+exec curl -s -v \
+     -H 'Content-Type: application/json' \
+     -d "$($MAKE_MEASUREMENT "$@")" \
+     "http://localhost:3000/api/measurements"

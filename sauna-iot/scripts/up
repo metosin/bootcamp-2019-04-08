@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec docker-compose -f "$(git rev-parse --show-toplevel)/lib/docker-compose.yml" up --detach

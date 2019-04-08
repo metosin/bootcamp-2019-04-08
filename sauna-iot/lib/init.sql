@@ -1,0 +1,3 @@
+-- Configuration in lib/docker-compose.yml does effectively this:
+-- CREATE USER sauna_iot_admin WITH PASSWORD 'sauna_iot_password';
+-- CREATE DATABASE sauna_iot OWNER sauna_iot_admin;
