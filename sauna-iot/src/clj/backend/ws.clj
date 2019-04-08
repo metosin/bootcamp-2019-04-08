@@ -1,12 +1,11 @@
 (ns backend.ws
   (:require [backend.measurements :as measurements]
+            [clj-time.coerce :as t-coerce]
             [clojure.tools.logging :as log]
             [eines.core :as eines]
             [eines.middleware.rsvp :as rsvp]
             [eines.server.immutant :as eines-immutant]
-            [mount.core :refer [defstate]]
-            [clj-time.coerce :as t-coerce]
-            ))
+            [mount.core :refer [defstate]]))
 
 ;;;
 ;;; Websocket handler
@@ -59,30 +58,3 @@
                     #(on-new-measurement %4))
   :stop (remove-watch measurements/latest-measurement
                       ::measurement-watcher))
-
-;;; XXX(soija) Kill these
-
-(defn create-uuid! []
-  (str (java.util.UUID/randomUUID)))
-
-(defonce todos (atom [{:id (create-uuid!)
-                       :text "Eat and drink"}
-                      {:id (create-uuid!)
-                       :text "Go to sauna!"}]))
-
-(defn add-todo! [message]
-  (let [{:keys [send! send-fn]} message]
-    (swap! todos conj {:id (create-uuid!)
-                       :text (:body message)})
-    (broadcast! {:message-type :todos
-                 :body @todos})))
-
-(defmethod handle-message :get-todos
-  [{:keys [send!]}]
-  (send! {:message-type :todos
-          :body @todos}))
-
-(defmethod handle-message :new-todo
-  [message]
-
-  (todo/add-todo! message))
