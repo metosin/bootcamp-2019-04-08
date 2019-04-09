@@ -1,7 +1,6 @@
 (ns backend.db
   (:require [backend.config :as config]
             [backend.db.support]
-            [clojure.java.jdbc :as jdbc]
             [conman.core :as conman]
             [luminus-migrations.core :as migration]
             [mount.core :refer [defstate]]))
