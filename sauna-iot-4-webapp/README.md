@@ -20,7 +20,7 @@ docker run --rm --name sauna_iot_db -p 5432:5432 -d \
 And to stop the database:
 
 ```
-docker run sauna_iot_db
+docker stop sauna_iot_db
 ```
 
 There are convenience scripts `scripts/pg-up` and `scripts/pg-down` that do
