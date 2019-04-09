@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec docker stop sauna_iot_db
